@@ -1,4 +1,4 @@
-package ksp;
+package src.test.ksp;
 
 import org.junit.jupiter.api.Test;
 
