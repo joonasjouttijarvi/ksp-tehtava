@@ -3,10 +3,10 @@ package ksp;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Luokka Game määrittelee pelin kulun. */
 public class Game {
 
   private static final Map<Selections, Selections> WINNING_COMBINATIONS = new HashMap<>();
+  private static final int WINS_REQUIRED = 3;
 
   static {
     WINNING_COMBINATIONS.put(Selections.ROCK, Selections.SCISSORS);
@@ -14,9 +14,6 @@ public class Game {
     WINNING_COMBINATIONS.put(Selections.PAPER, Selections.ROCK);
   }
 
-  /**
-   * @param args Pääohjelma, joka käynnistää pelin.
-   */
   public static void main(final String args[]) {
     final Player p1 = new Player();
     final Player p2 = new Player();
@@ -35,39 +32,33 @@ public class Game {
       PrintManager.printPlayerChoice(2, p2Selection, p2.getWins());
 
       final Result result = getResult(p1Selection, p2Selection);
-      switch (result) {
-        case WIN:
-          PrintManager.printWinner(1);
-          p1.increaseWins();
-          break;
-        case LOSE:
-          PrintManager.printWinner(2);
-          p2.increaseWins();
-          break;
-        case DRAW:
-          PrintManager.printDraw();
-          draws++;
-          break;
-      }
+      handleResult(result, p1, p2, draws);
 
       playedGames++;
-      if (p1.getWins() >= 3 || p2.getWins() >= 3) {
+      if (p1.getWins() >= WINS_REQUIRED || p2.getWins() >= WINS_REQUIRED) {
         gameEnd = true;
         PrintManager.printGameEnd();
       }
-      System.out.println();
     } while (!gameEnd);
   }
 
-  /**
-   * @param p1Selection
-   * @param p2Selection
-   * @return Palauttaa pelin tuloksen.
-   */
   static Result getResult(final Selections p1Selection, final Selections p2Selection) {
     if (p1Selection == p2Selection) {
       return Result.DRAW;
     }
     return WINNING_COMBINATIONS.get(p1Selection) == p2Selection ? Result.WIN : Result.LOSE;
+  }
+
+  static void handleResult(Result result, Player p1, Player p2, int draws) {
+    if (result == Result.WIN) {
+      PrintManager.printWinner(1);
+      p1.increaseWins();
+    } else if (result == Result.LOSE) {
+      PrintManager.printWinner(2);
+      p2.increaseWins();
+    } else if (result == Result.DRAW) {
+      PrintManager.printDraw();
+      draws++;
+    }
   }
 }
