@@ -39,7 +39,7 @@ public class Game {
         case WIN:
           PrintManager.printWinner(1);
           p1.increaseWins();
-          break; 
+          break;
         case LOSE:
           PrintManager.printWinner(2);
           p2.increaseWins();

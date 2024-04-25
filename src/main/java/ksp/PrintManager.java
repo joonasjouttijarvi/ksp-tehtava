@@ -2,7 +2,6 @@ package ksp;
 /**
  * Luokka PrintManager määrittelee tulostusmetodit.
  *
- * @author Joonas Jouttijärvi
  */
 public class PrintManager {
 
