@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-/** Luokka PlayerTest testaa pelaajan toiminnallisuutta. */
+/** Luokka PlayerTest testaa pelaajan toiminnallisuutta */
 class PlayerTest {
 
-  /** Testaa pelaajan valintaa. */
   @Test
   void playerChoice() {
     Player Player = new Player();
@@ -16,7 +15,6 @@ class PlayerTest {
     assertNotNull(selection);
   }
 
-  /** Testaa voittojen kasvattamista. */
   @Test
   void increaseWins() {
     Player Player = new Player();
@@ -24,7 +22,6 @@ class PlayerTest {
     assertEquals(1, Player.getWins());
   }
 
-  /** Testaa voittojen hakemista. */
   @Test
   void getWins() {
     Player Player = new Player();

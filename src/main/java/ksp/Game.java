@@ -1,64 +1,64 @@
 package ksp;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Game {
 
-  private static final Map<Selections, Selections> WINNING_COMBINATIONS = new HashMap<>();
   private static final int WINS_REQUIRED = 3;
 
-  static {
-    WINNING_COMBINATIONS.put(Selections.ROCK, Selections.SCISSORS);
-    WINNING_COMBINATIONS.put(Selections.SCISSORS, Selections.PAPER);
-    WINNING_COMBINATIONS.put(Selections.PAPER, Selections.ROCK);
-  }
-
-  public static void main(final String args[]) {
+  public static void main(final String[] args) {
     final Player p1 = new Player();
     final Player p2 = new Player();
-    boolean gameEnd = false;
+    final OutputManager outputManager = new ConsoleOutputManager();
+
+    runGame(p1, p2, outputManager);
+  }
+
+  /**
+ * @param p1
+ * @param p2
+ * @param outputManager
+ * Käynnistää pelin ja tulostaa sen etenemisen.
+ */
+private static void runGame(Player p1, Player p2, OutputManager outputManager) {
     int playedGames = 0;
-    int draws = 0;
-    Selections p1Selection;
-    Selections p2Selection;
+    boolean gameEnd = false;
 
     do {
-      PrintManager.printRound(playedGames);
-      PrintManager.printDraws(draws);
-      p1Selection = p1.playerChoice();
-      PrintManager.printPlayerChoice(1, p1Selection, p1.getWins());
-      p2Selection = p2.playerChoice();
-      PrintManager.printPlayerChoice(2, p2Selection, p2.getWins());
-
-      final Result result = getResult(p1Selection, p2Selection);
-      handleResult(result, p1, p2, draws);
-
       playedGames++;
+      outputManager.printRound(playedGames);
+
+      Selections p1Selection = p1.playerChoice();
+      Selections p2Selection = p2.playerChoice();
+
+      outputManager.printPlayerChoice(1, p1Selection, p1.getWins());
+      outputManager.printPlayerChoice(2, p2Selection, p2.getWins());
+
+      Result result = p1Selection.getResultAgainst(p2Selection);
+      handleAndPrintResult(result, p1, p2, outputManager);
+
       if (p1.getWins() >= WINS_REQUIRED || p2.getWins() >= WINS_REQUIRED) {
         gameEnd = true;
-        PrintManager.printGameEnd();
+        outputManager.printGameEnd();
       }
     } while (!gameEnd);
   }
 
-  static Result getResult(final Selections p1Selection, final Selections p2Selection) {
-    if (p1Selection == p2Selection) {
-      return Result.DRAW;
-    }
-    return WINNING_COMBINATIONS.get(p1Selection) == p2Selection ? Result.WIN : Result.LOSE;
-  }
-
-  static void handleResult(Result result, Player p1, Player p2, int draws) {
+  /**
+ * @param result
+ * @param p1
+ * @param p2
+ * @param outputManager
+ * Käsittelee ja tulostaa pelin tuloksen. OutputManagerin avulla tulostetaan voittaja.
+ */
+private static void handleAndPrintResult(
+      Result result, Player p1, Player p2, OutputManager outputManager) {
     if (result == Result.WIN) {
-      PrintManager.printWinner(1);
       p1.increaseWins();
+      outputManager.printWinner(1);
     } else if (result == Result.LOSE) {
-      PrintManager.printWinner(2);
       p2.increaseWins();
+      outputManager.printWinner(2);
     } else if (result == Result.DRAW) {
-      PrintManager.printDraw();
-      draws++;
+      outputManager.printDraw();
     }
   }
 }

@@ -2,19 +2,29 @@ package ksp;
 
 import java.util.Random;
 
-/** Enum Selections määrittelee kiven, paperin ja sakset ja niiden valinnan. */
 public enum Selections {
-  ROCK,
-  PAPER,
-  SCISSORS;
+  KIVI,
+  PAPERI,
+  SAKSET;
 
-  /**
-   * Palauttaa satunnaisen valinnan kiven, paperin ja sakset välillä käyttäen
-   * java.util.Random-luokkaa.
-   */
   private static final Random RANDOM = new Random();
 
   public static Selections value() {
     return values()[RANDOM.nextInt(values().length)];
+  }
+
+  public Result getResultAgainst(Selections other) {
+    if (this == other) {
+      return Result.DRAW;
+    }
+    switch (this) {
+      case KIVI:
+        return other == SAKSET ? Result.WIN : Result.LOSE;
+      case PAPERI:
+        return other == KIVI ? Result.WIN : Result.LOSE;
+      case SAKSET:
+        return other == PAPERI ? Result.WIN : Result.LOSE;
+    }
+    throw new IllegalStateException("Unexpected value: " + this);
   }
 }
