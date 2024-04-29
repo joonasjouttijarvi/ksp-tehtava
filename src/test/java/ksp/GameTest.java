@@ -5,11 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /** Testiluokka Game-luokalle. */
-public class GameTest {
+class GameTest {
 
   /** Testaa getResult-metodia. */
   @Test
-  public void testGetResult() {
+  void testGetResult() {
     assertEquals(Result.DRAW, Selections.KIVI.getResultAgainst(Selections.KIVI));
     assertEquals(Result.WIN, Selections.KIVI.getResultAgainst(Selections.SAKSET));
     assertEquals(Result.LOSE, Selections.KIVI.getResultAgainst(Selections.PAPERI));

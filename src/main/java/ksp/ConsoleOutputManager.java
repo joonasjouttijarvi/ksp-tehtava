@@ -19,8 +19,8 @@ public class ConsoleOutputManager implements OutputManager {
   }
 
   /**
-   * @param playerNumber
-   * @param choice
+   * @param playerNumber Pelaajan numero
+   * @param choice Pelaajan valinta
    * @param wins Tulostaa pelaajan valinnan ja voittojen lukumäärän.
    */
   @Override
@@ -29,7 +29,7 @@ public class ConsoleOutputManager implements OutputManager {
   }
 
   /**
-   * @param playerNumber Tulostaa voittajan.
+   * @param playerNumber Pelaajan numero
    */
   @Override
   public void printWinner(int playerNumber) {

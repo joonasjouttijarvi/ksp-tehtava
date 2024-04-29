@@ -17,14 +17,10 @@ public enum Selections {
     if (this == other) {
       return Result.DRAW;
     }
-    switch (this) {
-      case KIVI:
-        return other == SAKSET ? Result.WIN : Result.LOSE;
-      case PAPERI:
-        return other == KIVI ? Result.WIN : Result.LOSE;
-      case SAKSET:
-        return other == PAPERI ? Result.WIN : Result.LOSE;
-    }
-    throw new IllegalStateException("Unexpected value: " + this);
+      return switch (this) {
+          case KIVI -> other == SAKSET ? Result.WIN : Result.LOSE;
+          case PAPERI -> other == KIVI ? Result.WIN : Result.LOSE;
+          case SAKSET -> other == PAPERI ? Result.WIN : Result.LOSE;
+      };
   }
 }
