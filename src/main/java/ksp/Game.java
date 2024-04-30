@@ -8,46 +8,50 @@ public class Game {
   private final Player p2;
   private final OutputManager outputManager;
 
-  public Game(Player p1, Player p2, OutputManager outputManager) {
-    this.p1 = p1;
-    this.p2 = p2;
-    this.outputManager = outputManager;
-  }
 
-  public static void main(String[] args) {
-    final Player p1 = new Player();
-    final Player p2 = new Player();
-    final OutputManager outputManager = new ConsoleOutputManager();
 
-    Game game = new Game(p1, p2, outputManager);
+    public static void main(String[] args) {
+    Game game = new Game();
     game.run();
-  }
+}
 
-  /** Käynnistää pelin */
-  public void run() {
+public Game() {
+    this.p1 = new Player();
+    this.p2 = new Player();
+    this.outputManager = new ConsoleOutputManager();
+}
+
+public void run() {
     int playedGames = 0;
-    boolean gameEnd = false;
+    boolean gameEnd;
 
     do {
-      playedGames++;
-      outputManager.printRound(playedGames);
+        playedGames++;
+        outputManager.printRound(playedGames);
 
-      Selections p1Selection = p1.playerChoice();
-      Selections p2Selection = p2.playerChoice();
+        playRound();
 
-      outputManager.printPlayerChoice(1, p1Selection, p1.getWins());
-      outputManager.printPlayerChoice(2, p2Selection, p2.getWins());
+        gameEnd = checkGameEndCondition();
 
-      Result result = p1Selection.getResultAgainst(p2Selection);
-      handleAndPrintResult(result);
-
-      if (p1.getWins() >= WINS_REQUIRED || p2.getWins() >= WINS_REQUIRED) {
-        gameEnd = true;
-        outputManager.printGameEnd();
-      }
     } while (!gameEnd);
-  }
 
+    outputManager.printGameEnd();
+}
+
+private void playRound() {
+    Selections p1Selection = p1.playerChoice();
+    Selections p2Selection = p2.playerChoice();
+
+    outputManager.printPlayerChoice(1, p1Selection, p1.getWins());
+    outputManager.printPlayerChoice(2, p2Selection, p2.getWins());
+
+    Result result = p1Selection.getResultAgainst(p2Selection);
+    handleAndPrintResult(result);
+}
+
+private boolean checkGameEndCondition() {
+    return p1.getWins() >= WINS_REQUIRED || p2.getWins() >= WINS_REQUIRED;
+}
   /**
    * Käsittelee ja tulostaa pelin tuloksen
    *

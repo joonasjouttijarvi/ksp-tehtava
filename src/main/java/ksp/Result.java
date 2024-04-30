@@ -4,5 +4,5 @@ package ksp;
 public enum Result {
   WIN,
   LOSE,
-  DRAW;
+  DRAW
 }

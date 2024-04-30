@@ -10,7 +10,7 @@ kiven, sakset tai paperin ja voittaja ratkaistaan kun toinen pelaajista voittaa 
 
 - Koodissa oli käytetty paljon if-else lauseita. Koodi oli sekavaa ja vaikeasti luettavaa.
 - Koodissa oli paljon toistoa ja se ei ollut olio-ohjelmoinnin periaatteiden mukaista.
-- Koodissa oli paljon toistoa eikä se kommenttien mukaan toiminut oikein.
+- Koodi ei kommenttien mukaan toiminut oikein.
 
 ### Refaktorointi
 
@@ -24,5 +24,3 @@ kiven, sakset tai paperin ja voittaja ratkaistaan kun toinen pelaajista voittaa 
 8. Refaktoroin koodia siten, että se noudattaa mahdollisimman hyvin olio-ohjelmoinnin keskeisiä periaatteita.
 9. Kijroitin JUnit5 testit pelin luokille ja metodeille.
 10. Kirjoitin puuttuvat JavaDoc kommentit.
-
-### Linkit JavaDoc sivustoon ja testikattavuusraporttiin

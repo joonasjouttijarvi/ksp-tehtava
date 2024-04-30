@@ -7,9 +7,8 @@ package ksp;
 public class Player {
 
   private int wins;
-  private int allWins;
 
-  /**
+    /**
    * Valitsee satunnaisesti kiven, paperin tai sakset.
    *
    * @return selection, joka on joko kivi, paperi tai sakset.
@@ -21,7 +20,6 @@ public class Player {
   /** Kasvattaa voittojen lukumäärää yhdellä. */
   public void increaseWins() {
     wins++;
-    allWins++;
   }
 
   /**
@@ -33,7 +31,4 @@ public class Player {
     return wins;
   }
 
-  public int getAllWins() {
-    return allWins;
-  }
 }

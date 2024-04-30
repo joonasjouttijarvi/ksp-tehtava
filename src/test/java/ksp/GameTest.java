@@ -1,25 +1,47 @@
 package ksp;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-/** Testiluokka Game-luokalle. */
 class GameTest {
 
-  /** Testaa getResult-metodia. */
-  @Test
-  void testGetResult() {
-    assertEquals(Result.DRAW, Selections.KIVI.getResultAgainst(Selections.KIVI));
-    assertEquals(Result.WIN, Selections.KIVI.getResultAgainst(Selections.SAKSET));
-    assertEquals(Result.LOSE, Selections.KIVI.getResultAgainst(Selections.PAPERI));
+    private Game game;
 
-    assertEquals(Result.LOSE, Selections.SAKSET.getResultAgainst(Selections.KIVI));
-    assertEquals(Result.DRAW, Selections.SAKSET.getResultAgainst(Selections.SAKSET));
-    assertEquals(Result.WIN, Selections.SAKSET.getResultAgainst(Selections.PAPERI));
+    @BeforeEach
+    void setUp() {
+        game = new Game();
+    }
 
-    assertEquals(Result.WIN, Selections.PAPERI.getResultAgainst(Selections.KIVI));
-    assertEquals(Result.LOSE, Selections.PAPERI.getResultAgainst(Selections.SAKSET));
-    assertEquals(Result.DRAW, Selections.PAPERI.getResultAgainst(Selections.PAPERI));
-  }
+    @Test
+    void gameEndsWhenPlayerWinsRequiredRounds() {
+        game.getP1().setWins(Game.WINS_REQUIRED);
+        assertTrue(game.checkGameEndCondition());
+    }
+
+    @Test
+    void gameContinuesWhenNoPlayerWinsRequiredRounds() {
+        game.getP1().setWins(Game.WINS_REQUIRED - 1);
+        assertFalse(game.checkGameEndCondition());
+    }
+
+    @Test
+    void playerWinsRoundWhenResultIsWin() {
+        game.handleAndPrintResult(Result.WIN);
+        assertEquals(1, game.getP1().getWins());
+    }
+
+    @Test
+    void playerLosesRoundWhenResultIsLose() {
+        game.handleAndPrintResult(Result.LOSE);
+        assertEquals(1, game.getP2().getWins());
+    }
+
+    @Test
+    void noPlayerWinsRoundWhenResultIsDraw() {
+        game.handleAndPrintResult(Result.DRAW);
+        assertEquals(0, game.getP1().getWins());
+        assertEquals(0, game.getP2().getWins());
+    }
 }
