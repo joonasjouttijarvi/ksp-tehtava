@@ -1,5 +1,7 @@
 package ksp;
 
+/** OutputManager rajapinta määrittelee metodit, joita käytetään pelin tulostamiseen. */
+
 public interface OutputManager {
     void printRound(int round);
     void printDraws(int draws);

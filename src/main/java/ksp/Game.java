@@ -8,37 +8,43 @@ public class Game {
   private final Player p2;
   private final OutputManager outputManager;
 
-
-
-    public static void main(String[] args) {
+  public static void main(String[] args) {
     Game game = new Game();
     game.run();
-}
-
-public Game() {
+  }
+  /**
+   * Konstruktori luo kaksi pelaajaa ja OutputManagerin.
+   */
+  public Game() {
     this.p1 = new Player();
     this.p2 = new Player();
     this.outputManager = new ConsoleOutputManager();
-}
+  }
 
-public void run() {
+    /**
+     * Käynnistää pelin ja hallinnoi pelin kulkua.
+     */
+  public void run() {
     int playedGames = 0;
     boolean gameEnd;
 
     do {
-        playedGames++;
-        outputManager.printRound(playedGames);
+      playedGames++;
+      outputManager.printRound(playedGames);
 
-        playRound();
+      playRound();
 
-        gameEnd = checkGameEndCondition();
+      gameEnd = checkGameEndCondition();
 
     } while (!gameEnd);
 
     outputManager.printGameEnd();
-}
+  }
 
-private void playRound() {
+    /**
+     * Pelaa yhden kierroksen peliä.
+     */
+  private void playRound() {
     Selections p1Selection = p1.playerChoice();
     Selections p2Selection = p2.playerChoice();
 
@@ -47,11 +53,18 @@ private void playRound() {
 
     Result result = p1Selection.getResultAgainst(p2Selection);
     handleAndPrintResult(result);
-}
+  }
 
-private boolean checkGameEndCondition() {
+  /**
+   * Tarkistaa pelin loppumisehdon
+   *
+   * @return true, jos jompikumpi pelaajista on saavuttanut voittomäärän
+   */
+
+  private boolean checkGameEndCondition() {
     return p1.getWins() >= WINS_REQUIRED || p2.getWins() >= WINS_REQUIRED;
-}
+  }
+
   /**
    * Käsittelee ja tulostaa pelin tuloksen
    *

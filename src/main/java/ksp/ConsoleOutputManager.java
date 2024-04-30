@@ -1,9 +1,13 @@
 package ksp;
 
+/**
+ * Luokka ConsoleOutputManager määrittelee OutputManager rajapinnan metodit.
+ */ 
 public class ConsoleOutputManager implements OutputManager {
 
   /**
-   * @param round Tulostaa erän numeron.
+   * Tulostaa erän numeron.
+   * @param round erän numero
    */
   @Override
   public void printRound(int round) {
@@ -11,7 +15,8 @@ public class ConsoleOutputManager implements OutputManager {
   }
 
   /**
-   * @param draws Tulostaa tasapelien lukumäärän.
+   * Tulostaa tasapelien lukumäärän.
+   * @param draws  tasapelien lukumäärä.
    */
   @Override
   public void printDraws(int draws) {
@@ -19,6 +24,7 @@ public class ConsoleOutputManager implements OutputManager {
   }
 
   /**
+   * Tulostaa pelaajan valinnan ja voittojen lukumäärän.
    * @param playerNumber Pelaajan numero
    * @param choice Pelaajan valinta
    * @param wins Tulostaa pelaajan valinnan ja voittojen lukumäärän.
@@ -29,6 +35,7 @@ public class ConsoleOutputManager implements OutputManager {
   }
 
   /**
+   * Tulostaa eplin voittajan
    * @param playerNumber Pelaajan numero
    */
   @Override
